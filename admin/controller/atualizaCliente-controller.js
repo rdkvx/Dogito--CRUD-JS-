@@ -15,7 +15,7 @@ import { clienteService } from "../service/cliente-service.js";
     }
     catch(erro){
         console.log(erro);
-        window.location.href = '../telas/erro.html';
+        //window.location.href = '../telas/erro.html';
     }
 
     const formulario = document.querySelector('[data-form]');
@@ -28,7 +28,7 @@ import { clienteService } from "../service/cliente-service.js";
     }
     catch(erro){
         console.log(erro);
-        window.location.href = '../telas/erro.html';
+        //window.location.href = '../telas/erro.html';
     }
     
     });

@@ -1,15 +1,19 @@
-const listaClientes =()=>{
-    return fetch(`http://localhost:3000/profile`).then(resposta=>{
+const listaClientes = async()=>{
+    try{
+        let resposta = await fetch(`http://localhost:3000/profile`);
         if(resposta.ok){
-            return resposta.json();
+            return  resposta.json();
         }
-        throw new Error('Não foi possível listar os clientes');
-        
-    });    
+    }
+    catch(erro){
+        throw new Error(`Não foi possível listar os clientes, erro: ${erro}`);
+    }
 }
 
-const criaCliente =(nome, email)=>{
-    return fetch(`http://localhost:3000/profile`,{
+
+const criaCliente = async (nome, email)=>{
+    try{
+        let resposta = await fetch(`http://localhost:3000/profile`,{
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json' 
@@ -18,36 +22,42 @@ const criaCliente =(nome, email)=>{
             nome: nome,
             email: email
         })
-    }).then(resposta =>{
+        })
         if(resposta.ok){
             return resposta.body
         }
-        throw new Error('Não foi possível gravar cliente');
-    })
+    }
+    catch(erro){
+        throw new Error(`Não foi possível gravar cliente! Erro: ${erro}`);
+    }    
 }
 
-const removeCliente =(id)=>{
-    return fetch(`http://localhost:3000/profile/${id}`,{
+
+const removeCliente = async(id)=>{
+    let resposta = await fetch(`http://localhost:3000/profile/${id}`,{
         method: 'DELETE'
-    }).then(resposta =>{
-        if(!resposta.ok){
-            throw new Error('Não foi possível remover cliente');
-        }
     })
+    if(!resposta.ok){
+        throw new Error('Não foi possível remover cliente');
+    }
 }
 
-const detalhaCliente = (id)=>{
-    return fetch(`http://localhost:3000/profile/${id}`).then(resposta =>{
+const detalhaCliente = async (id)=>{
+    try{
+        let resposta = await fetch(`http://localhost:3000/profile/${id}`);
         if(resposta.ok){
             return resposta.json();
         }
+    }
+    catch(erro){
         throw new Error('Não foi possível detalhar o cliente');
-        
-    })
+    }
 }
 
-const atualizaCliente = (id, nome, email)=>{
-    return fetch(`http://localhost:3000/profile/${id}`,{
+
+const atualizaCliente = async (id, nome, email)=>{
+    
+        let resposta = await fetch(`http://localhost:3000/profile/${id}`,{
         method: 'PUT',
         headers: {
             'Content-Type' : "application/json"
@@ -56,12 +66,12 @@ const atualizaCliente = (id, nome, email)=>{
             nome: nome,
             email: email
         })
-    }).then(resposta =>{
+    })
         if(resposta.ok){
             return resposta.json();
         }
-        throw new Error('Não foi possível atualizar o cliente');
-    })
+        console.log(resposta)
+        throw new Error(`Não foi possível atualizar o cliente! Erro: ${resposta.statusText}`);
 }
 
 export const clienteService = {

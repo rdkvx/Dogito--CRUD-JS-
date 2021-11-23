@@ -28,7 +28,7 @@ tabela.addEventListener('click', async (evento)=>{
             linhaCliente.remove();
         }
         catch(erro){
-            window.location.href = '../telas/erro.html';
+            //window.location.href = '../telas/erro.html';
         }
         
     }
@@ -44,7 +44,7 @@ const render = async () =>{
     }
     catch(erro){
         console.log(erro);
-        window.location.href = '../telas/erro.html';
+        //window.location.href = '../telas/erro.html';
     }
 }
 
